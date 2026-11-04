@@ -124,9 +124,24 @@ def _merge_config(base: dict[str, Any], overrides: dict[str, Any]) -> dict[str, 
 
 
 def _checkpoint_payload(*, model, target, optimizer, replay, config, actions,
-                        global_step, episode, env_rng_state, rng):
+                        global_step, episode, env_rng_state, rng, env=None,
+                        state=None, episode_return=0.0, episode_steps=0):
+    environment_state = None
+    if env is not None and state is not None:
+        environment_state = {
+            "track": env.track.name,
+            "car_state": env.unwrapped.state.copy(),
+            "previous_s": float(env.unwrapped._prev_s),
+            "progress": float(env.unwrapped.progress),
+            "best_progress": float(env.unwrapped.best_progress),
+            "steps": int(env.unwrapped.steps),
+            "steps_without_improvement": int(env.unwrapped.steps_without_improvement),
+            "observation": np.asarray(state, dtype=np.float32).copy(),
+            "episode_return": float(episode_return),
+            "episode_steps": int(episode_steps),
+        }
     return {
-        "format_version": 1,
+        "format_version": 2,
         "online_state_dict": model.state_dict(),
         "target_state_dict": target.state_dict(),
         "optimizer_state_dict": optimizer.state_dict(),
@@ -136,6 +151,7 @@ def _checkpoint_payload(*, model, target, optimizer, replay, config, actions,
         "obs_dim": replay.obs_dim,
         "global_step": global_step,
         "episode": episode,
+        "environment_state": environment_state,
         "rng": {
             "python": random.getstate(),
             "numpy_global": np.random.get_state(),
@@ -162,6 +178,7 @@ def train(config: dict[str, Any], output: str | Path, steps: int,
         "collision_penalty": 10.0,
         "inactivity_penalty": 0.01,
         "inactivity_threshold": 1e-4,
+        "time_penalty": 0.0,
         **config.get("reward", {}),
     }
     seed = int(training.get("seed", config.get("seed", 0)))
@@ -199,35 +216,61 @@ def train(config: dict[str, Any], output: str | Path, steps: int,
         optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
         for parameter_group in optimizer.param_groups:
             parameter_group["lr"] = learning_rate
-        replay = ReplayBuffer.from_state_dict(checkpoint["replay"])
         global_step, episode = int(checkpoint["global_step"]), int(checkpoint["episode"])
+        if bool(training.get("reset_replay", False)):
+            replay = ReplayBuffer(replay_capacity, obs_dim)
+        else:
+            replay = ReplayBuffer.from_state_dict(checkpoint["replay"])
+            if replay.capacity != replay_capacity:
+                replay = ReplayBuffer.from_state_dict(checkpoint["replay"])
         saved_rng = checkpoint.get("rng", {})
-        if "python" in saved_rng:
-            random.setstate(saved_rng["python"])
-        if "numpy_global" in saved_rng:
-            np.random.set_state(saved_rng["numpy_global"])
-        if "torch_cpu" in saved_rng:
-            torch.set_rng_state(saved_rng["torch_cpu"])
-        if "generator" in saved_rng:
-            rng.bit_generator.state = saved_rng["generator"]
-        # Environment state is restarted at an episode boundary. Restore its random
-        # stream so future randomized starts/tracks continue from the saved stream.
-        if "environment" in saved_rng:
-            env.np_random.bit_generator.state = saved_rng["environment"]
-        initial_obs, _ = env.reset()
+        if bool(training.get("resume_rng", True)):
+            if "python" in saved_rng:
+                random.setstate(saved_rng["python"])
+            if "numpy_global" in saved_rng:
+                np.random.set_state(saved_rng["numpy_global"])
+            if "torch_cpu" in saved_rng:
+                torch.set_rng_state(saved_rng["torch_cpu"])
+            if "generator" in saved_rng:
+                rng.bit_generator.state = saved_rng["generator"]
+            # Restore the environment stream before resuming the saved active
+            # episode; future starts/tracks then continue from the saved stream.
+            if "environment" in saved_rng:
+                env.np_random.bit_generator.state = saved_rng["environment"]
+        active_episode = checkpoint.get("environment_state")
+        if active_episode is None:
+            initial_obs, _ = env.reset()
+        else:
+            matching_tracks = [track for track in env.unwrapped.tracks
+                               if track.name == active_episode["track"]]
+            if not matching_tracks:
+                raise ValueError(f"checkpoint track {active_episode['track']!r} is not configured")
+            env.unwrapped.track = matching_tracks[0]
+            env.unwrapped.state = np.asarray(active_episode["car_state"], dtype=float).copy()
+            env.unwrapped._prev_s = float(active_episode["previous_s"])
+            env.unwrapped.progress = float(active_episode["progress"])
+            env.unwrapped.best_progress = float(active_episode["best_progress"])
+            env.unwrapped.steps = int(active_episode["steps"])
+            env.unwrapped.steps_without_improvement = int(active_episode["steps_without_improvement"])
+            initial_obs = env.unwrapped._observe()
 
     gamma = float(training.get("gamma", 0.99))
     batch_size = int(training.get("batch_size", 64))
     learning_starts = int(training.get("learning_starts", 1_000))
     train_frequency = max(1, int(training.get("train_frequency", 4)))
     target_update_frequency = max(1, int(training.get("target_update_frequency", 1_000)))
+    target_update_tau = float(training.get("target_update_tau", 0.0))
+    if not 0.0 <= target_update_tau <= 1.0:
+        raise ValueError("target_update_tau must be between 0 and 1")
     epsilon_start = float(training.get("epsilon_start", 1.0))
     epsilon_end = float(training.get("epsilon_end", 0.05))
     epsilon_decay_steps = max(1, int(training.get("epsilon_decay_steps", 50_000)))
     gradient_clip = float(training.get("gradient_clip", 10.0))
-    state = initial_obs
-    episode_return = 0.0
-    episode_steps = 0
+    active_episode = parent_checkpoint.get("environment_state") if parent_checkpoint is not None else None
+    state = (np.asarray(active_episode["observation"], dtype=np.float32).copy()
+             if active_episode is not None else initial_obs)
+    episode_return = float(active_episode.get("episode_return", 0.0)) if active_episode else 0.0
+    episode_steps = int(active_episode.get("episode_steps", 0)) if active_episode else 0
     out_dir = Path(output)
     out_dir.mkdir(parents=True, exist_ok=True)
     checkpoint_every = max(0, int(training.get("checkpoint_every", 10_000)))
@@ -246,7 +289,8 @@ def train(config: dict[str, Any], output: str | Path, steps: int,
             previous_progress = float(env.unwrapped.progress)
             next_state, _environment_reward, terminated, truncated, info = env.step(actions[action_index])
             progress_delta = float(env.unwrapped.progress) - previous_progress
-            reward = float(reward_config["forward_progress_weight"]) * progress_delta
+            reward = (float(reward_config["forward_progress_weight"]) * progress_delta
+                      - float(reward_config["time_penalty"]))
             if progress_delta <= float(reward_config["inactivity_threshold"]):
                 reward -= float(reward_config["inactivity_penalty"])
             if info.get("collision", False):
@@ -267,7 +311,10 @@ def train(config: dict[str, Any], output: str | Path, steps: int,
                 done_t = torch.as_tensor(dones, dtype=torch.float32)
                 current_q = model(states_t).gather(1, action_t).squeeze(1)
                 with torch.no_grad():
-                    next_q = target(next_t).max(dim=1).values
+                    # Double DQN reduces the positive bias from taking a max over
+                    # noisy action values while keeping the evaluator policy unchanged.
+                    next_actions = model(next_t).argmax(dim=1, keepdim=True)
+                    next_q = target(next_t).gather(1, next_actions).squeeze(1)
                     target_q = reward_t + gamma * (1.0 - done_t) * next_q
                 loss = nn.functional.smooth_l1_loss(current_q, target_q)
                 optimizer.zero_grad(set_to_none=True)
@@ -275,7 +322,16 @@ def train(config: dict[str, Any], output: str | Path, steps: int,
                 nn.utils.clip_grad_norm_(model.parameters(), gradient_clip)
                 optimizer.step()
 
-            if global_step % target_update_frequency == 0:
+                # Optional Polyak averaging keeps bootstrap targets from making
+                # abrupt jumps. A zero tau preserves the hard-update schedule for
+                # older configurations and checkpoints.
+                if target_update_tau > 0.0:
+                    with torch.no_grad():
+                        for target_parameter, online_parameter in zip(
+                                target.parameters(), model.parameters()):
+                            target_parameter.lerp_(online_parameter, target_update_tau)
+
+            if target_update_tau == 0.0 and global_step % target_update_frequency == 0:
                 target.load_state_dict(model.state_dict())
 
             if done:
@@ -289,6 +345,8 @@ def train(config: dict[str, Any], output: str | Path, steps: int,
                     model=model, target=target, optimizer=optimizer, replay=replay,
                     config=config, actions=actions, global_step=global_step,
                     episode=episode, env_rng_state=env.np_random.bit_generator.state, rng=rng,
+                    env=env, state=state, episode_return=episode_return,
+                    episode_steps=episode_steps,
                 )
                 torch.save(payload, out_dir / "latest.pt")
     finally:
@@ -298,6 +356,8 @@ def train(config: dict[str, Any], output: str | Path, steps: int,
         model=model, target=target, optimizer=optimizer, replay=replay,
         config=config, actions=actions, global_step=global_step,
         episode=episode, env_rng_state=env.np_random.bit_generator.state, rng=rng,
+        env=env, state=state, episode_return=episode_return,
+        episode_steps=episode_steps,
     )
     final_path = out_dir / "latest.pt"
     torch.save(payload, final_path)
