@@ -2,4 +2,5 @@ __pycache__/
 .pytest_cache/
 *.png
 .venv/
+.weights/
 experiments/runs/
