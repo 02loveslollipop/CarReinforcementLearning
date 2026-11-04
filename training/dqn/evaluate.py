@@ -1,6 +1,6 @@
 """Deterministic, standardized evaluation for saved DQN policies.
 
-Run with ``python -m dqn.evaluate path/to/checkpoint.pt``. The evaluator runs
+Run with ``python -m training.dqn.evaluate path/to/checkpoint.pt``. The evaluator runs
 each of the three built-in tracks from four quarter-lap offsets and emits one
 JSON document containing per-episode and aggregate metrics.
 """
@@ -16,7 +16,7 @@ import numpy as np
 import torch
 from torch import nn
 
-from car_rl.environment import CarTrackEnv
+from utils.car_rl.environment import CarTrackEnv
 
 
 TRACKS = ("circuit", "oval", "clover")

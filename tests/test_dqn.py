@@ -1,8 +1,8 @@
 import numpy as np
 import torch
 
-from dqn.trainer import QNetwork, make_actions, train, load_checkpoint
-from dqn.evaluate import _build_q_network
+from training.dqn.trainer import QNetwork, make_actions, train, load_checkpoint
+from training.dqn.evaluate import _build_q_network
 
 
 def test_checkpoint_can_continue_and_evaluator_matches_policy(tmp_path):

@@ -1,5 +1,5 @@
 import time,json,resource,numpy as np,torch
-from car_rl.environment import CarTrackEnv
+from utils.car_rl.environment import CarTrackEnv
 torch.set_num_threads(1); torch.manual_seed(1)
 net=torch.nn.Sequential(torch.nn.Linear(10,128),torch.nn.ReLU(),torch.nn.Linear(128,128),torch.nn.ReLU(),torch.nn.Linear(128,15))
 t=time.perf_counter(); steps=0; lengths=[]

@@ -1,6 +1,6 @@
 import os,time,random,json,resource,io
 import numpy as np, torch
-from car_rl.environment import CarTrackEnv
+from utils.car_rl.environment import CarTrackEnv
 
 torch.set_num_threads(1)
 random.seed(1); np.random.seed(1); torch.manual_seed(1)

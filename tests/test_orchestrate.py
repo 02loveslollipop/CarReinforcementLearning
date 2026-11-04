@@ -1,10 +1,24 @@
 from pathlib import Path
 
-from experiments.orchestrate import _agent_prompt, _select_parents, _train_and_evaluate
-from experiments.export_when_complete import export
-from experiments.supervise import complete, workers_alive
+from orchestration.orchestrate import _agent_prompt, _select_parents, _train_and_evaluate
+from orchestration.export_when_complete import export
+from orchestration.supervise import complete, workers_alive
 from types import SimpleNamespace
 import json
+
+
+def test_candidate_snapshot_preserves_standalone_imports(tmp_path):
+    import os
+    import subprocess
+    import sys
+    from orchestration.orchestrate import ROOT, _copy_code
+
+    _copy_code(ROOT, tmp_path)
+    env = dict(os.environ, PYTHONPATH=str(tmp_path))
+    subprocess.run(
+        [sys.executable, "-c", "import dqn.trainer, dqn.evaluate, car_rl; import gymnasium as gym; gym.make('CarTrack-v0')"],
+        cwd=tmp_path, env=env, check=True,
+    )
 
 
 def test_single_parent_selection_favors_rank_and_is_deterministic():
@@ -27,7 +41,7 @@ def test_first_continuation_generation_receives_parent_reports(tmp_path):
 
 
 def test_export_waits_for_all_candidates(tmp_path, monkeypatch):
-    monkeypatch.setattr('experiments.export_when_complete.audit', lambda path: [])
+    monkeypatch.setattr('orchestration.export_when_complete.audit', lambda path: [])
     run = tmp_path / "run"
     run.mkdir()
     destination = tmp_path / "demo"
@@ -74,14 +88,14 @@ def test_supervisor_requires_every_candidate_in_every_generation():
 
 
 def test_supervisor_detects_surviving_training_container(tmp_path, monkeypatch):
-    monkeypatch.setattr('experiments.supervise.shutil.which', lambda name: '/bin/podman')
+    monkeypatch.setattr('orchestration.supervise.shutil.which', lambda name: '/bin/podman')
     def run(command, **kwargs):
         if command[0] == 'ps':
             return SimpleNamespace(stdout='')
         if command[1] == 'ps':
             return SimpleNamespace(stdout='abc\n')
         return SimpleNamespace(returncode=0, stdout=json.dumps([{'Mounts': [{'Source': str(tmp_path / 'candidate')}]}]))
-    monkeypatch.setattr('experiments.supervise.subprocess.run', run)
+    monkeypatch.setattr('orchestration.supervise.subprocess.run', run)
     assert workers_alive(tmp_path)
 
 
@@ -89,13 +103,13 @@ def test_recovered_finished_checkpoint_is_evaluated_without_retraining(tmp_path,
     (tmp_path / 'output').mkdir()
     (tmp_path / 'logs').mkdir()
     (tmp_path / 'output/latest.pt').write_text('checkpoint')
-    monkeypatch.setattr('experiments.orchestrate._validate_candidate', lambda candidate: (True, 'ok'))
-    monkeypatch.setattr('experiments.orchestrate._restore_fixed_code', lambda *args: None)
-    monkeypatch.setattr('experiments.orchestrate.subprocess.run',
+    monkeypatch.setattr('orchestration.orchestrate._validate_candidate', lambda candidate: (True, 'ok'))
+    monkeypatch.setattr('orchestration.orchestrate._restore_fixed_code', lambda *args: None)
+    monkeypatch.setattr('orchestration.orchestrate.subprocess.run',
                         lambda *args, **kwargs: SimpleNamespace(returncode=0, stdout='[100, 200]\n'))
     def logged(command, log_path):
         assert 'dqn.evaluate' in command
         (tmp_path / 'evaluation.json').write_text('{"mean_score": 0.5}')
         return True, 'ok'
-    monkeypatch.setattr('experiments.orchestrate._run_logged', logged)
+    monkeypatch.setattr('orchestration.orchestrate._run_logged', logged)
     assert _train_and_evaluate(tmp_path, 'podman', 100, 1, resume=True) == (True, 'training and evaluation complete', .5)

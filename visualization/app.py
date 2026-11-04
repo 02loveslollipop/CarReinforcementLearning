@@ -8,9 +8,9 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from car_rl import dynamics
-from car_rl.environment import CarTrackEnv, SENSOR_ANGLES
-from dqn.evaluate import _load_checkpoint
+from utils.car_rl import dynamics
+from utils.car_rl.environment import CarTrackEnv, SENSOR_ANGLES
+from training.dqn.evaluate import _load_checkpoint
 from .circuits import random_circuit
 
 ROOT = Path(__file__).resolve().parents[1]

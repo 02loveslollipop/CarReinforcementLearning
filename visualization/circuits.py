@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from car_rl.tracks import Track
+from utils.car_rl.tracks import Track
 
 
 def random_circuit(rng: np.random.Generator, number: int = 1) -> Track:

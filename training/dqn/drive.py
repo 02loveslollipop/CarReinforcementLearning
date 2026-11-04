@@ -1,6 +1,6 @@
 """Drive a saved DQN checkpoint on a chosen track.
 
-Example: python -m dqn.drive experiments/runs/main/best/latest.pt --track circuit
+Example: python -m training.dqn.drive experiments/runs/main/best/latest.pt --track circuit
 """
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import json
 
 import torch
 
-from car_rl.environment import CarTrackEnv
+from utils.car_rl.environment import CarTrackEnv
 from .evaluate import _load_checkpoint
 
 

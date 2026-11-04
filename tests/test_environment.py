@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from gymnasium.utils.env_checker import check_env
 
-from car_rl import CarTrackEnv, TRACKS
+from utils.car_rl import CarTrackEnv, TRACKS
 from examples.heuristic_driver import driver
 
 

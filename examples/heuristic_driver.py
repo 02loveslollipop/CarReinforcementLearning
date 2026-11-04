@@ -7,7 +7,7 @@ import sys
 
 import numpy as np
 
-import car_rl  # noqa: F401  (registers CarTrack-v0)
+import utils.car_rl  # noqa: F401  (registers CarTrack-v0)
 import gymnasium as gym
 
 

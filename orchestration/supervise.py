@@ -106,7 +106,7 @@ def main():
         elif other_failures:
             time.sleep(60)
         print("Resuming incomplete run", flush=True)
-        subprocess.run([sys.executable, "-u", str(ROOT / "experiments/orchestrate.py"), "--run-dir", str(run_dir)], cwd=ROOT)
+        subprocess.run([sys.executable, "-u", str(ROOT / "orchestration/orchestrate.py"), "--run-dir", str(run_dir)], cwd=ROOT)
         other_failures = 0 if delay is not None else other_failures + 1
 
 

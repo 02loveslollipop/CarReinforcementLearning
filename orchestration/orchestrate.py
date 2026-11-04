@@ -46,11 +46,19 @@ def _read_json(path: Path, default: Any = None) -> Any:
 def _copy_code(source_root: Path, destination: Path) -> None:
     """Copy only the Python source needed by a candidate's fixed environment."""
     for package in ("dqn", "car_rl"):
+        # Archived candidate workspaces retain their original import layout.
         source = source_root / package
+        if source_root == ROOT:
+            source = ROOT / ("training/dqn" if package == "dqn" else "utils/car_rl")
         target = destination / package
         target.mkdir(parents=True, exist_ok=True)
         for file in source.glob("*.py"):
-            shutil.copy2(file, target / file.name)
+            if source_root == ROOT:
+                text = file.read_text(encoding="utf-8")
+                text = text.replace("utils.car_rl", "car_rl").replace("training.dqn", "dqn")
+                (target / file.name).write_text(text, encoding="utf-8")
+            else:
+                shutil.copy2(file, target / file.name)
 
 
 def _restore_fixed_code(candidate: Path, immutable: Path) -> None:

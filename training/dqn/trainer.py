@@ -2,7 +2,7 @@
 
 The two-dimensional action space is discretized into a Cartesian grid. A run's
 configuration is a JSON object with optional ``environment`` and ``training``
-objects; environment keys are passed to :class:`car_rl.CarTrackEnv`, ``reward``
+objects; environment keys are passed to :class:`utils.car_rl.CarTrackEnv`, ``reward``
 keys configure progress/collision/inactivity shaping, and training keys configure
 the learner. Checkpoints contain the learner, optimizer,
 replay buffer, and random-number generator states so a later run can continue.
@@ -20,7 +20,7 @@ import numpy as np
 import torch
 from torch import nn
 
-from car_rl import CarTrackEnv
+from utils.car_rl import CarTrackEnv
 
 
 class QNetwork(nn.Module):
