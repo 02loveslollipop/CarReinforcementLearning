@@ -1,0 +1,7 @@
+gymnasium>=1.0
+numpy
+matplotlib
+torch
+
+# Development / testing
+pytest

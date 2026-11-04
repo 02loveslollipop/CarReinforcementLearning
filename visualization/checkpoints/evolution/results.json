@@ -1,0 +1,493 @@
+{
+  "best": {
+    "directory": "/home/zerotwo/working/car_rl/experiments/runs/main/generations/gen_001/candidate_006",
+    "generation": 1,
+    "index": 6,
+    "score": 0.8678424708521285,
+    "source_run": "/home/zerotwo/working/car_rl/experiments/runs/main"
+  },
+  "score_definition": "0.8 * clipped lap progress + 0.2 * clipped mean forward speed / 20",
+  "generations": [
+    {
+      "generation": 1,
+      "selected_parent_indices": [
+        3,
+        0
+      ],
+      "candidates": [
+        {
+          "index": 0,
+          "score": 0.023705004757779303,
+          "parent_index": 3,
+          "mean_progress": 0.015799523038925626,
+          "mean_forward_speed_mps": 1.1065386326638806,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 1,
+          "score": 0.01755130542051171,
+          "parent_index": 3,
+          "mean_progress": 0.011798358291809358,
+          "mean_forward_speed_mps": 0.811261878706422,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 2,
+          "score": 0.04161524709738152,
+          "parent_index": 3,
+          "mean_progress": 0.016912909363377637,
+          "mean_forward_speed_mps": 2.8084919606679404,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 3,
+          "score": 0.08519909249706775,
+          "parent_index": 0,
+          "mean_progress": 0.07329162919297616,
+          "mean_forward_speed_mps": 2.656578914268682,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 4,
+          "score": 0.04319955981764694,
+          "parent_index": 0,
+          "mean_progress": 0.03896646340295557,
+          "mean_forward_speed_mps": 1.2026389095282488,
+          "lap_completion_rate": 0.0
+        }
+      ]
+    },
+    {
+      "generation": 2,
+      "selected_parent_indices": [
+        3
+      ],
+      "candidates": [
+        {
+          "index": 0,
+          "score": 0.00621313544668567,
+          "parent_index": 3,
+          "mean_progress": 0.004095818111364058,
+          "mean_forward_speed_mps": 0.29364809575944234,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 1,
+          "score": 0.0062319924818129745,
+          "parent_index": 3,
+          "mean_progress": 0.004231028781198291,
+          "mean_forward_speed_mps": 0.2847169456854341,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 2,
+          "score": 0.08836473049725345,
+          "parent_index": 3,
+          "mean_progress": 0.04952331658452331,
+          "mean_forward_speed_mps": 4.87460772296348,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 3,
+          "score": 0.062347885575160716,
+          "parent_index": 3,
+          "mean_progress": 0.03451841739420463,
+          "mean_forward_speed_mps": 3.4733151659797,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 4,
+          "score": 0.004094163494381569,
+          "parent_index": 3,
+          "mean_progress": 0.003107569743721351,
+          "mean_forward_speed_mps": 0.16081076994044882,
+          "lap_completion_rate": 0.0
+        }
+      ]
+    },
+    {
+      "generation": 3,
+      "selected_parent_indices": [
+        1
+      ],
+      "candidates": [
+        {
+          "index": 0,
+          "score": 0.029503774342844624,
+          "parent_index": 1,
+          "mean_progress": 0.021064913122153764,
+          "mean_forward_speed_mps": 1.265184384512161,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 1,
+          "score": 0.09456303794504757,
+          "parent_index": 1,
+          "mean_progress": 0.056770716665068534,
+          "mean_forward_speed_mps": 4.914646461299275,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 2,
+          "score": 0.17599065998298377,
+          "parent_index": 1,
+          "mean_progress": 0.11759631740214539,
+          "mean_forward_speed_mps": 8.191360606126743,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 3,
+          "score": 0.05236955756878092,
+          "parent_index": 1,
+          "mean_progress": 0.05030042456005269,
+          "mean_forward_speed_mps": 1.212921792073877,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 4,
+          "score": 0.028730118921114402,
+          "parent_index": 1,
+          "mean_progress": 0.021372710984160367,
+          "mean_forward_speed_mps": 1.1631950133786109,
+          "lap_completion_rate": 0.0
+        }
+      ]
+    },
+    {
+      "generation": 4,
+      "selected_parent_indices": [
+        2
+      ],
+      "candidates": [
+        {
+          "index": 0,
+          "score": 0.3107281543395566,
+          "parent_index": 2,
+          "mean_progress": 0.28483902200551897,
+          "mean_forward_speed_mps": 8.28569367351414,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 1,
+          "score": 0.5085973320100609,
+          "parent_index": 2,
+          "mean_progress": 0.4752242836853286,
+          "mean_forward_speed_mps": 12.841790506179812,
+          "lap_completion_rate": 0.16666666666666666
+        },
+        {
+          "index": 2,
+          "score": 0.09402039276899661,
+          "parent_index": 2,
+          "mean_progress": 0.04419048199435773,
+          "mean_forward_speed_mps": 5.866800717351041,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 3,
+          "score": 0.06564085557787958,
+          "parent_index": 2,
+          "mean_progress": 0.04073282747799642,
+          "mean_forward_speed_mps": 3.305459359548243,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 4,
+          "score": 0.6156828810146472,
+          "parent_index": 2,
+          "mean_progress": 0.7032461348963689,
+          "mean_forward_speed_mps": 5.308597309755209,
+          "lap_completion_rate": 0.25
+        }
+      ]
+    },
+    {
+      "generation": 5,
+      "selected_parent_indices": [
+        1
+      ],
+      "candidates": [
+        {
+          "index": 0,
+          "score": 0.09837536565089988,
+          "parent_index": 1,
+          "mean_progress": 0.10681905266626278,
+          "mean_forward_speed_mps": 1.292012351788965,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 1,
+          "score": 0.2782202333317425,
+          "parent_index": 1,
+          "mean_progress": 0.1743406679146542,
+          "mean_forward_speed_mps": 13.874769900001915,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 2,
+          "score": 0.04261282544498118,
+          "parent_index": 1,
+          "mean_progress": 0.03533810080235741,
+          "mean_forward_speed_mps": 1.4342344803095255,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 3,
+          "score": 0.19756485556369463,
+          "parent_index": 1,
+          "mean_progress": 0.20307246441302104,
+          "mean_forward_speed_mps": 3.5106884033277814,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 4,
+          "score": 0.046354318842994645,
+          "parent_index": 1,
+          "mean_progress": 0.04747852487589771,
+          "mean_forward_speed_mps": 0.8371498942276472,
+          "lap_completion_rate": 0.0
+        }
+      ]
+    },
+    {
+      "generation": 6,
+      "selected_parent_indices": [
+        3
+      ],
+      "candidates": [
+        {
+          "index": 0,
+          "score": 0.15274091444044335,
+          "parent_index": 3,
+          "mean_progress": 0.17558620655605361,
+          "mean_forward_speed_mps": 1.2271949195600445,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 1,
+          "score": 0.20009237074120625,
+          "parent_index": 3,
+          "mean_progress": 0.22219708340104105,
+          "mean_forward_speed_mps": 2.2334704020373386,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 2,
+          "score": 0.15077189434301408,
+          "parent_index": 3,
+          "mean_progress": 0.17372910252390414,
+          "mean_forward_speed_mps": 1.1788612323890766,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 3,
+          "score": 0.1362614624315243,
+          "parent_index": 3,
+          "mean_progress": 0.14536111181937586,
+          "mean_forward_speed_mps": 1.997257297602361,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 4,
+          "score": 0.22686711921380828,
+          "parent_index": 3,
+          "mean_progress": 0.25429205296889973,
+          "mean_forward_speed_mps": 2.3433476838688434,
+          "lap_completion_rate": 0.0
+        }
+      ]
+    },
+    {
+      "generation": 7,
+      "selected_parent_indices": [
+        3
+      ],
+      "candidates": [
+        {
+          "index": 0,
+          "score": 0.07884487193833152,
+          "parent_index": 3,
+          "mean_progress": 0.08753652073555933,
+          "mean_forward_speed_mps": 0.8815655349884048,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 1,
+          "score": 0.04922274147421596,
+          "parent_index": 3,
+          "mean_progress": 0.04718359621418461,
+          "mean_forward_speed_mps": 1.1475864502868263,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 2,
+          "score": 0.014855880327465034,
+          "parent_index": 3,
+          "mean_progress": 0.014128239045092486,
+          "mean_forward_speed_mps": 0.35532890913910453,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 3,
+          "score": 0.24478531666575967,
+          "parent_index": 3,
+          "mean_progress": 0.27423417074933815,
+          "mean_forward_speed_mps": 2.5397980066289194,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 4,
+          "score": 0.0733515784144269,
+          "parent_index": 3,
+          "mean_progress": 0.08247492767821407,
+          "mean_forward_speed_mps": 0.7371636271855634,
+          "lap_completion_rate": 0.0
+        }
+      ]
+    },
+    {
+      "generation": 8,
+      "selected_parent_indices": [
+        3
+      ],
+      "candidates": [
+        {
+          "index": 0,
+          "score": 0.006090844097468876,
+          "parent_index": 3,
+          "mean_progress": 0.003565641042088081,
+          "mean_forward_speed_mps": 0.32383312637984124,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 1,
+          "score": 0.01626369122350908,
+          "parent_index": 3,
+          "mean_progress": 0.008170614495676937,
+          "mean_forward_speed_mps": 0.9727199626967531,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 2,
+          "score": 0.02834143482537747,
+          "parent_index": 3,
+          "mean_progress": 0.030004920395586634,
+          "mean_forward_speed_mps": 0.43374985089081597,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 3,
+          "score": 0.04294223560953558,
+          "parent_index": 3,
+          "mean_progress": 0.04672873267243698,
+          "mean_forward_speed_mps": 0.5559249471585993,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 4,
+          "score": 0.007446847011963342,
+          "parent_index": 3,
+          "mean_progress": 0.004775193962993246,
+          "mean_forward_speed_mps": 0.3626691841568744,
+          "lap_completion_rate": 0.0
+        }
+      ]
+    },
+    {
+      "generation": 9,
+      "selected_parent_indices": [
+        3
+      ],
+      "candidates": [
+        {
+          "index": 0,
+          "score": 0.04721811506711169,
+          "parent_index": 3,
+          "mean_progress": 0.053718257526347235,
+          "mean_forward_speed_mps": 0.4243509046033896,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 1,
+          "score": 0.29296344420140247,
+          "parent_index": 3,
+          "mean_progress": 0.3101861680647981,
+          "mean_forward_speed_mps": 4.481450974956393,
+          "lap_completion_rate": 0.16666666666666666
+        },
+        {
+          "index": 2,
+          "score": 0.010331714031164773,
+          "parent_index": 3,
+          "mean_progress": 0.008218745919592672,
+          "mean_forward_speed_mps": 0.3756717295490634,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 3,
+          "score": 0.016598046893472402,
+          "parent_index": 3,
+          "mean_progress": 0.012697010468270672,
+          "mean_forward_speed_mps": 0.6440438518855864,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 4,
+          "score": 0.009010057224936193,
+          "parent_index": 3,
+          "mean_progress": 0.005629906975004344,
+          "mean_forward_speed_mps": 0.4506131644932718,
+          "lap_completion_rate": 0.0
+        }
+      ]
+    },
+    {
+      "generation": 10,
+      "selected_parent_indices": [
+        0
+      ],
+      "candidates": [
+        {
+          "index": 0,
+          "score": 0.009671093601564316,
+          "parent_index": 0,
+          "mean_progress": 0.0072399850962381026,
+          "mean_forward_speed_mps": 0.3879105524573834,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 1,
+          "score": 0.19852785765352035,
+          "parent_index": 0,
+          "mean_progress": 0.19818824828219017,
+          "mean_forward_speed_mps": 3.997725902776819,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 2,
+          "score": 0.02439286576222509,
+          "parent_index": 0,
+          "mean_progress": 0.02371599978667517,
+          "mean_forward_speed_mps": 0.5420065932884947,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 3,
+          "score": 0.014038913810625282,
+          "parent_index": 0,
+          "mean_progress": 0.011348169738615993,
+          "mean_forward_speed_mps": 0.49603780197324915,
+          "lap_completion_rate": 0.0
+        },
+        {
+          "index": 4,
+          "score": 0.011419765436965275,
+          "parent_index": 0,
+          "mean_progress": 0.007704076484783963,
+          "mean_forward_speed_mps": 0.5256504249138104,
+          "lap_completion_rate": 0.0
+        }
+      ]
+    }
+  ]
+}

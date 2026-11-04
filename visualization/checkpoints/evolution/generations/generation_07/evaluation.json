@@ -1,0 +1,188 @@
+{
+  "checkpoint": "output/latest.pt",
+  "collision_rate": 0.0,
+  "episodes": 12,
+  "lap_completion_rate": 0.0,
+  "mean_progress": 0.27423417074933815,
+  "mean_score": 0.24478531666575967,
+  "per_track": {
+    "circuit": {
+      "collision_rate": 0.0,
+      "lap_completion_rate": 0.0,
+      "mean_progress": 0.21563642098926744,
+      "mean_score": 0.1968843920354864
+    },
+    "clover": {
+      "collision_rate": 0.0,
+      "lap_completion_rate": 0.0,
+      "mean_progress": 0.23053235722920534,
+      "mean_score": 0.2094204041083371
+    },
+    "oval": {
+      "collision_rate": 0.0,
+      "lap_completion_rate": 0.0,
+      "mean_progress": 0.3765337340295416,
+      "mean_score": 0.32805115385345557
+    }
+  },
+  "results": [
+    {
+      "collision": false,
+      "elapsed_seconds": 90.65,
+      "forward_distance_m": 260.89012705806977,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 2.8779936796257006,
+      "progress": 0.2410358196764873,
+      "return": 13.38600929772522,
+      "score": 0.22160859253744686,
+      "start_fraction": 0.0,
+      "track": "circuit",
+      "truncated": true
+    },
+    {
+      "collision": false,
+      "elapsed_seconds": 58.7,
+      "forward_distance_m": 212.5523529644871,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 3.6209940879810407,
+      "progress": 0.19637665556258344,
+      "return": 10.467990845360415,
+      "score": 0.19331126532987716,
+      "start_fraction": 0.25,
+      "track": "circuit",
+      "truncated": true
+    },
+    {
+      "collision": false,
+      "elapsed_seconds": 139.55,
+      "forward_distance_m": 367.4423439338108,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 2.633051550940958,
+      "progress": 0.3394791805755929,
+      "return": 18.862976931236773,
+      "score": 0.2979138599698839,
+      "start_fraction": 0.5,
+      "track": "circuit",
+      "truncated": true
+    },
+    {
+      "collision": false,
+      "elapsed_seconds": 150.0,
+      "forward_distance_m": 92.70941686219282,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 0.6180627790812855,
+      "progress": 0.08565402814240605,
+      "return": 4.77115017319992,
+      "score": 0.0747038503047377,
+      "start_fraction": 0.75,
+      "track": "circuit",
+      "truncated": true
+    },
+    {
+      "collision": false,
+      "elapsed_seconds": 150.0,
+      "forward_distance_m": 444.33148584472974,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 2.9622099056315316,
+      "progress": 0.5323016634269947,
+      "return": 22.5295522799467,
+      "score": 0.4554634297979111,
+      "start_fraction": 0.0,
+      "track": "oval",
+      "truncated": true
+    },
+    {
+      "collision": false,
+      "elapsed_seconds": 76.7,
+      "forward_distance_m": 184.2812163395388,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 2.40262342033297,
+      "progress": 0.22076580463209564,
+      "return": 9.342801151963778,
+      "score": 0.20063887790900622,
+      "start_fraction": 0.25,
+      "track": "oval",
+      "truncated": true
+    },
+    {
+      "collision": false,
+      "elapsed_seconds": 150.0,
+      "forward_distance_m": 444.3314858447177,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 2.9622099056314513,
+      "progress": 0.5323016634269803,
+      "return": 22.5295522799467,
+      "score": 0.4554634297978988,
+      "start_fraction": 0.5,
+      "track": "oval",
+      "truncated": true
+    },
+    {
+      "collision": false,
+      "elapsed_seconds": 76.7,
+      "forward_distance_m": 184.2812163395389,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 2.4026234203329713,
+      "progress": 0.22076580463209575,
+      "return": 9.342801151963778,
+      "score": 0.20063887790900634,
+      "start_fraction": 0.75,
+      "track": "oval",
+      "truncated": true
+    },
+    {
+      "collision": false,
+      "elapsed_seconds": 27.3,
+      "forward_distance_m": 8.594364074643181,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 0.31481187086605056,
+      "progress": 0.0071142203955396775,
+      "return": 0.47572824041187,
+      "score": 0.008839495025092249,
+      "start_fraction": 0.0,
+      "track": "clover",
+      "truncated": true
+    },
+    {
+      "collision": false,
+      "elapsed_seconds": 150.0,
+      "forward_distance_m": 452.3301516808991,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 3.0155343445393274,
+      "progress": 0.3744286793830539,
+      "return": 22.911528658680734,
+      "score": 0.3296982869518364,
+      "start_fraction": 0.25,
+      "track": "clover",
+      "truncated": true
+    },
+    {
+      "collision": false,
+      "elapsed_seconds": 150.0,
+      "forward_distance_m": 483.9149210307339,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 3.226099473538226,
+      "progress": 0.40057383780844213,
+      "return": 24.55037779762868,
+      "score": 0.352720064982136,
+      "start_fraction": 0.5,
+      "track": "clover",
+      "truncated": true
+    },
+    {
+      "collision": false,
+      "elapsed_seconds": 49.150000000000006,
+      "forward_distance_m": 169.1429246573872,
+      "lap_completed": false,
+      "mean_forward_speed_mps": 3.4413616410455172,
+      "progress": 0.1400126913297857,
+      "return": 8.753192928641937,
+      "score": 0.14642376947428373,
+      "start_fraction": 0.75,
+      "track": "clover",
+      "truncated": true
+    }
+  ],
+  "score_definition": "0.8 * clip(forward_distance / track_length, 0, 1) + 0.2 * clip((forward_distance / elapsed_seconds) / 20, 0, 1)",
+  "truncation_rate": 1.0
+}

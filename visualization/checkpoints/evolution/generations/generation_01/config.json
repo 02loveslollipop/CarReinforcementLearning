@@ -1,0 +1,45 @@
+{
+  "environment": {
+    "random_start": true,
+    "observe_dynamics": true,
+    "track": [
+      "circuit",
+      "oval",
+      "clover"
+    ]
+  },
+  "training": {
+    "seed": 6,
+    "hidden_sizes": [
+      128,
+      128
+    ],
+    "force_bins": 5,
+    "steering_bins": 7,
+    "learning_rate": 0.00002,
+    "gamma": 0.99,
+    "batch_size": 128,
+    "learning_starts": 2000,
+    "train_frequency": 2,
+    "target_update_frequency": 750,
+    "collision_replay_fraction": 0.4,
+    "track_sampling_weights": {
+      "circuit": 1.0,
+      "oval": 1.0,
+      "clover": 1.0
+    },
+    "epsilon_start": 0.05,
+    "epsilon_end": 0.01,
+    "epsilon_decay_steps": 40000,
+    "target_update_tau": 0.005,
+    "gradient_clip": 5.0,
+    "checkpoint_every": 10000
+  },
+  "reward": {
+    "forward_progress_weight": 1.0,
+    "collision_penalty": 50.0,
+    "lane_centering_weight": 0.04,
+    "inactivity_penalty": 0.002,
+    "inactivity_threshold": 0.0001
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "run_dir": "experiments/runs/continuation",
+  "generations": 10,
+  "population": 5,
+  "audit": "passed"
+}
